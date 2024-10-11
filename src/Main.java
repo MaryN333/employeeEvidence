@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class Main {
         List<Person> persons = new ArrayList<>();
         Person p1 = new Person("Jana", "Nováková", 36);
         Person p2 = new Person("Jan", "Novák", PersonType.GUEST);
-        Person p3 = new Person("Petr", "Svoboda", PersonType.OUTSIDE_EMPLOYEE, new BigDecimal("100.00"));
+        Person p3 = new Person("Petr", "Svoboda",new BigDecimal("100.00"), PersonType.OUTSIDE_EMPLOYEE);
 
         persons.add(p1);
         persons.add(p2);
@@ -45,7 +46,7 @@ public class Main {
 //        System.out.println(persons);
 
         for(int i = 1; i<21; i++){
-            Person person = new Person(String.valueOf(i), "guest", PersonType.GUEST, new BigDecimal("300.00"));
+            Person person = new Person(String.valueOf(i), "guest", new BigDecimal("300.00"), PersonType.GUEST);
             persons.add(person);
         }
 
@@ -68,13 +69,36 @@ public class Main {
         int count = timeClocksWorker.countPersons();
         System.out.println("There are " + count + " persons.");
 
-        System.out.println("Průměrný počet tiketů:" + timeClocksWorker.avgTicketsNumber());
+        System.out.println("Průměrný počet tiketů: " + timeClocksWorker.avgTicketsNumber());
 
         System.out.println("-*".repeat(20));
-        System.out.println(timeClocksWorker.findFirstPersonGreaterTicketsThan(40));
-        System.out.println(timeClocksWorker.findFirstPersonGreaterTicketsThan(50));
+        System.out.println(timeClocksWorker.getFirstPersonGreaterTicketsThan(40));
+        System.out.println(timeClocksWorker.getFirstPersonGreaterTicketsThan(50));
 
         System.out.println("Počet hostů v seznamu: " + timeClocksWorker.countGuests()); // 21
 
+        System.out.println("-*".repeat(20));
+        System.out.println(p1);             // Jana Nováková (ID:1)
+        System.out.println(p2);             // Návštěva: Jan Novák
+        System.out.println(p3);             // Petr Svoboda(ID:3) OUTSIDE_EMPLOYEE
+
+        System.out.println("-*".repeat(20));
+        timeClocksWorker.addOnePerson(new Person("Honza", "Fantyš", 10));
+        System.out.println(timeClocksWorker.getPersonsWithRangeTickets(9, 40));
+
+        System.out.println("-*".repeat(20));
+        timeClocksWorker.addOnePerson(new Person("Jana", "Mrackova", 2, new BigDecimal("200.00"), PersonType.EMPLOYEE, LocalDate.of(2024, 9,15)));;
+        System.out.println(timeClocksWorker.getPersonsLastMonth());
+
+        System.out.println("-*".repeat(20));
+        System.out.println(timeClocksWorker.getAllWithName("Jana"));
+
+        System.out.println("-*".repeat(20));
+        timeClocksWorker.printNamesWithTickets();
+
+        System.out.println("-*".repeat(20));
+        System.out.println(timeClocksWorker.getPersonsWithMoreTickets(7));
+        System.out.println("-*".repeat(20));
+        timeClocksWorker.printNamesWithTickets();   // just for control, that original List hasn`t been changed (sorted)
     }
 }
