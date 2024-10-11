@@ -35,7 +35,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<Person> persons = new ArrayList<>();
-        Person p1 = new Person("Jana", "Nováková", 0);
+        Person p1 = new Person("Jana", "Nováková", 36);
         Person p2 = new Person("Jan", "Novák", PersonType.GUEST);
         Person p3 = new Person("Petr", "Svoboda", PersonType.OUTSIDE_EMPLOYEE, new BigDecimal("100.00"));
 
@@ -57,5 +57,24 @@ public class Main {
         printEmployeesNames(persons);
         System.out.println("-*".repeat(20));
         printNoEmployeesType(persons);
+
+        TimeClocksWorker timeClocksWorker = new TimeClocksWorker();
+        timeClocksWorker.addPersonsList(persons);
+        System.out.println("-*".repeat(20));
+
+        timeClocksWorker.addOnePerson(new Person("John", "Johnson", 50));
+        printAllNames(timeClocksWorker.getPersons());
+
+        int count = timeClocksWorker.countPersons();
+        System.out.println("There are " + count + " persons.");
+
+        System.out.println("Průměrný počet tiketů:" + timeClocksWorker.avgTicketsNumber());
+
+        System.out.println("-*".repeat(20));
+        System.out.println(timeClocksWorker.findFirstPersonGreaterTicketsThan(40));
+        System.out.println(timeClocksWorker.findFirstPersonGreaterTicketsThan(50));
+
+        System.out.println("Počet hostů v seznamu: " + timeClocksWorker.countGuests()); // 21
+
     }
 }
